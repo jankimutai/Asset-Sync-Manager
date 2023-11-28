@@ -1,161 +1,233 @@
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
-function Registration() {
-  const [name, setName] = useState('');
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [role, setRole] = useState('');
-  const [department, setDepartment] = useState('');
+function Register() {
+  const [user, setUser] = useState({
+    full_name: '',
+    username: '',
+    email: '',
+    password: '',
+    role: '',
+    department: '',
+  });
 
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [nameError, setNameError] = useState('');
+  const [usernameError, setUsernameError] = useState('');
+  const [departmentError, setDepartmentError] = useState('');
 
-  function handleName(e) {
-    setName(e.target.value);
-  }
+  const handleName = (e) => {
+    const enteredName = e.target.value;
+    setUser({
+      ...user,
+      full_name: enteredName,
+    });
+    setNameError(enteredName ? '' : 'Please enter your name');
+  };
 
-  function handleUsername(e) {
-    setUsername(e.target.value);
-  }
+  const handleUsername = (e) => {
+    const enteredUsername = e.target.value;
+    setUser({
+      ...user,
+      username: enteredUsername,
+    });
+    setUsernameError(enteredUsername ? '' : 'Please enter your username');
+  };
 
-  function handleEmail(e) {
-    setEmail(e.target.value);
-  }
+  const handleEmail = (e) => {
+    const enteredEmail = e.target.value;
+    setUser({
+      ...user,
+      email: enteredEmail,
+    });
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    setEmailError(emailRegex.test(enteredEmail) ? '' : 'Please enter a valid email address');
+  };
 
-  function handlePassword(e) {
-    setPassword(e.target.value);
-  }
+  const handlePassword = (e) => {
+    const enteredPassword = e.target.value;
+    setUser({
+      ...user,
+      password: enteredPassword,
+    });
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    setPasswordError(
+      passwordRegex.test(enteredPassword)
+        ? ''
+        : 'Password must contain at least 8 characters, one lowercase letter, one uppercase letter, one digit, and one special character'
+    );
+  };
 
-  function handleRole(e) {
-    setRole(e.target.value);
-  }
+  const handleRole = (e) => {
+    setUser({
+      ...user,
+      role: e.target.value,
+    });
+  };
 
-  function handleDepartment(e) {
-    setDepartment(e.target.value);
-  }
-  function handleSubmit(e) {
+  const handleDepartment = (e) => {
+    const enteredDepartment = e.target.value;
+    setUser({
+      ...user,
+      department: enteredDepartment,
+    });
+    setDepartmentError(enteredDepartment ? '' : 'Please enter your department');
+  };
+
+  const handleSubmit = (e) => {
     e.preventDefault();
 
-    let newObj = {
-      name: name,
-      username: username,
-      email: email,
-      password: password,
-      role: role,
-      department: department,
-    };
+    if (emailError || passwordError || nameError || usernameError || departmentError) {
+      console.error('Invalid input. Please correct the errors before submitting.');
+      return;
+    }
 
-    fetch("/registration", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(newObj),
+    // Continue with form submission logic
+    fetch('http://127.0.0.1:5555/registration', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(user),
     })
-    .then((response) => {
-      if (response.ok) {
-        // Registration successful
-        alert("Registration successful. You can now sign in.")
-      } else {
-        // Registration failed, handle errors here
-        alert("Registration failed! Please try again")
-      }
-    })
-    .catch((error) => {
-      console.error("Error registering user:", error)
-    });
-
-    e.target.reset();
-  }
+      .then((resp) => resp.json())
+      .then((data) => console.log(data))
+      .catch((error) => console.error('Error:', error));
+  };
 
   return (
-    <div className="d-flex justify-content-center align-items-center bg-primary vh-100">
-      <div className="bg-white p-3 rounded w-25 navy blue" >
-        <h2>Create your account</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="mb-3">
-            <label htmlFor="name">
-              <strong>Full name</strong>
+    <div className="flex items-center justify-center h-screen">
+      <div className="w-full max-w-md">
+        <form className="bg-white-500 shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
+          <h2 className="text-2xl font-bold mb-4">Create your account</h2>
+
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
+              Full name
             </label>
             <input
               type="text"
               placeholder="Enter your name"
-              className="form-control rounded-0"
+              className={`appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+                nameError ? 'border-red-500' : ''
+              }`}
               onChange={handleName}
               required
             />
+            {nameError && <p className="text-red-500 text-xs italic">{nameError}</p>}
           </div>
-          <div className="mb-3">
-            <label htmlFor="username">
-              <strong>Username</strong>
+
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">
+              Username
             </label>
             <input
               type="text"
-              placeholder="Type your username"
-              className="form-control rounded-0"
+              placeholder="Enter your username"
+              className={`appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+                usernameError ? 'border-red-500' : ''
+              }`}
               onChange={handleUsername}
               required
             />
+            {usernameError && <p className="text-red-500 text-xs italic">{usernameError}</p>}
           </div>
-          <div className="mb-3">
-            <label htmlFor="email">
-              <strong>E-mail or phone number</strong>
+
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
+              E-mail or phone number
             </label>
             <input
               type="email"
-              placeholder="Type your e-mail"
-              className="form-control rounded-0"
+              placeholder="Enter your e-mail"
+              className={`appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+                emailError ? 'border-red-500' : ''
+              }`}
               onChange={handleEmail}
               required
             />
+            {emailError && <p className="text-red-500 text-xs italic">{emailError}</p>}
           </div>
-          <div className="mb-3">
-            <label htmlFor="password">
-              <strong>Password</strong>
+
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
+              Password
             </label>
             <input
               type="password"
-              placeholder="Type your password"
-              className="form-control rounded-0"
+              placeholder="Enter your password"
+              className={`appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+                passwordError ? 'border-red-500' : ''
+              }`}
               onChange={handlePassword}
               minLength="8"
               required
             />
-            <small className="form-text text-muted">Must be 8 characters at least</small>
+            {passwordError && <p className="text-red-500 text-xs italic">{passwordError}</p>}
+            <small className="block text-gray-600 text-sm">Must be 8 characters at least</small>
           </div>
-          <div className="mb-3">
-            <label htmlFor="role">
-              <strong>Role</strong>
+
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="role">
+              Role
             </label>
-            <input
-              type="text"
-              placeholder="Type your role"
-              className="form-control rounded-0"
+            <select
+              value={user.role}
               onChange={handleRole}
-              required
-            />
+              className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            >
+              <option value="" disabled>Select Role</option>
+              <option value="employee">Employee</option>
+              <option value="admin">Admin</option>
+              <option value="procurement">Procurement Manager</option>
+            </select>
           </div>
-          <div className="mb-3">
-            <label htmlFor="department">
-              <strong>Department</strong>
+
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="department">
+              Department
             </label>
             <input
               type="text"
-              placeholder="Type your department"
-              className="form-control rounded-0"
+              placeholder="Enter your department"
+              className={`appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+                departmentError ? 'border-red-500' : ''
+              }`}
               onChange={handleDepartment}
               required
             />
+            {departmentError && <p className="text-red-500 text-xs italic">{departmentError}</p>}
           </div>
-          <button className="btn btn-success w-100 rounded-0">Sign Up</button>
-          <p>
-            By creating an account means you agree to the{" "}
-            <Link to="/">Terms and Conditions</Link>, and our{" "}
-            <Link to="/">Privacy Policy</Link>
+
+          <button
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            type="submit"
+          >
+            Register
+          </button>
+
+          <p className="mt-4 text-sm">
+            By creating an account means you agree to the{' '}
+            <Link to="/terms-and-conditions" className="text-blue-500">
+              Terms and Conditions
+            </Link>
+            , and our{' '}
+            <Link to="/privacy-policy" className="text-blue-500">
+              Privacy Policy
+            </Link>
           </p>
-          <p className="mb-0">Already have an account? <Link to="/">Sign In</Link></p>
+
+          <p className="mt-4 text-sm">
+            Already have an account?{' '}
+            <Link to="/login" className="text-blue-500">
+              Login
+            </Link>
+          </p>
         </form>
       </div>
     </div>
   );
 }
 
-export default Registration;
+export default Register;
