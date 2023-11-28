@@ -209,7 +209,7 @@ function Register() {
 
           <p className="mt-4 text-sm">
             By creating an account means you agree to the{' '}
-            <Link to="/terms-and-conditions" className="text-blue-500">
+            <Link to="/terms and conditions" className="text-blue-500">
               Terms and Conditions
             </Link>
             , and our{' '}
