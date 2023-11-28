@@ -12,7 +12,7 @@ function App() {
                 <Route path="/registration" element={<Registration/>}></Route>
                 <Route path="/forgot" element={<ForgotPassword/>}></Route>
                 <Route path="/terms and conditions" element={<TermsAndConditions/>}></Route>
-                <Route path="privacy policy" element={<PrivacyPolicy/>}></Route>
+                <Route path="privacy-policy" element={<PrivacyPolicy/>}></Route>
             </Routes>
         </div>
         
