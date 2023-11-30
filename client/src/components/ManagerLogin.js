@@ -2,9 +2,9 @@ import React from 'react'
 import { useState} from 'react'
 import { useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
-import { Link } from 'react-router-dom'
 
-function Signin() {
+
+function ManagerLogin() {
   const [user, setUser] = useState({
     email: '',
     role: '',
@@ -43,22 +43,7 @@ function Signin() {
           title: 'Success',
           text: 'You have successfully logged into your account.'
         })
-        navigate("/home")
-          // if (data.user.role) {
-          //     const userRole = data.user.role;
-      
-          //     if (userRole === 'Admin') {
-          //         navigate("/admin_dashboard");
-          //     } else if (userRole === 'procurement') {
-          //         navigate("/manager_dashboard");
-          //     } else if (userRole === 'Normal Employee') {
-          //         navigate("/user_dashboard");
-          //     }
-          // } else {
-          //     // Handle the case where the role is not present in the response
-          //     console.error('User role not found in the response.');
-          // }
-      
+        navigate("/admin/dashboard")
       })
       .catch((error) => {
         console.error('Error:', error);
@@ -78,7 +63,7 @@ function Signin() {
       <div
         class="shrink-1 mb-12 grow-0 basis-auto md:mb-0 md:w-9/12 md:shrink-0 lg:w-6/12 xl:w-6/12">
         <img
-          src="https://images.unsplash.com/photo-1563986768711-b3bde3dc821e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fElUJTIwYXNzZXRzfGVufDB8fDB8fHww"
+          src="https://media.istockphoto.com/id/1322595946/photo/woman-using-access-window-to-log-in-entering-password-on-laptop-sign-up-username-password.jpg?s=2048x2048&w=is&k=20&c=Z0amHmdSYXaqqnVPOJZrOv_XiloAxzDosZsTaXsUUBM="
           class="w-full"
           alt="Sample" />
       </div>
@@ -113,24 +98,6 @@ function Signin() {
               >Email address
             </label>
           </div>
-{/* 
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="role">
-              Role
-            </label>
-            <select
-              value={user.role}
-              name='role'
-              onChange={handleChange}
-              className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            >
-              <option value="" disabled>Select Role</option>
-              <option value="Normal Employee">Employee</option>
-              <option value="Admin">Admin</option>
-              <option value="Procurement Manager">Procurement Manager</option>
-            </select>
-          </div> */}
-
           <div class="relative mb-6" data-te-input-wrapper-init>
             <input
               type="password"
@@ -160,7 +127,7 @@ function Signin() {
               </label>
             </div>
 
-            <a href="/forgot">Forgot password?</a>
+            <a href="#!">Forgot password?</a>
           </div>
 
           <div class="text-center lg:text-left">
@@ -173,19 +140,13 @@ function Signin() {
               Login
             </button>
 
-            <p className="mb-0 mt-2 pt-1 text-sm font-semibold">
+            <p class="mb-0 mt-2 pt-1 text-sm font-semibold">
               Don't have an account?
               <a
                 href="/register"
                 class="text-danger transition duration-150 ease-in-out hover:text-danger-600 focus:text-danger-600 active:text-danger-700"
                 >Register</a
               >
-            </p>
-            <p className="mb-0 mt-2 pt-1 text-sm font-semibold">
-              Login as Administrator{' '}
-              <Link to="/admin/login" className="text-blue-500 hover:underline">
-                here
-              </Link>
             </p>
           </div>
         </form>
@@ -197,4 +158,4 @@ function Signin() {
   )
 }
 
-export default Signin
+export default ManagerLogin;

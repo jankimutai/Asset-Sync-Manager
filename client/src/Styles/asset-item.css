@@ -1,0 +1,25 @@
+.asset-item-small{
+    padding:5px;
+    align-items: center;
+    text-align: center;
+    margin: auto;
+    padding: 30px;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+    font-size: 18px;
+    width: 700px;
+    background-color: beige;
+    
+
+}
+.asset-image-small{
+    width: 250px;
+    height:250px;
+    object-fit:initial;
+    padding: 10px;
+    margin: auto;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
+.asset-item-container{
+    background-color: aqua;
+
+}

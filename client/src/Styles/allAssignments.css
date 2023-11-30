@@ -1,0 +1,24 @@
+/* styles.css */
+
+.table-title {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  
+  .assignment-table {
+    border-collapse: collapse;
+    margin-top: 10px;
+    margin: auto;
+  }
+  
+  .assignment-table th, .assignment-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .assignment-table th {
+    background-color: #f2f2f2;
+  }
+  
