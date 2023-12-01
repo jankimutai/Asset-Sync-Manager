@@ -13,6 +13,8 @@ import PrivacyPolicy from "./components/PrivacyPolicy";
 import AssetItem from './components/AssetItem';
 import ManagerLogin from './AdminViews/ManagerLogin';
 import AdminDashboard from './containers/Admin';
+import RequestForm from './components/RequestForm';
+import RequestList from './components/RequestList';
 function App() {
     return(
         <div>
@@ -30,6 +32,8 @@ function App() {
                 <Route path="/asset/:id" element={<AssetItem />} />
                 <Route path = "/admin/login" element={<ManagerLogin />}/>
                 <Route path = "/admin/dashboard" element={<AdminDashboard />}/>
+                <Route path="/requestform" element={<RequestForm/>}></Route>
+                <Route path="/requests" element={<RequestList/>}></Route>
             </Routes>
             <Footer />
         </div>
