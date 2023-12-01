@@ -23,3 +23,21 @@
     background-color: aqua;
 
 }
+form{
+    max-width: 900px;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 8px;
+    margin-top: 10px;
+    font-size: 1.1rem;
+    line-height: 1.5;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+input{
+    width: 100%;
+    padding: 0.2rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+}

@@ -43,14 +43,13 @@ const AssetList = () => {
             </div>
 
             <h2 className="text-lg font-bold mb-4">{asset.asset_name}</h2>
+            <span className='font-bold mr-2'>ID:</span>
+            <span>{asset.id}</span>
             <div className="mb-2">
                 <span className="font-bold mr-2">Model:</span>
                 <span>{asset.model}</span>
             </div>
-            <div className="mb-2">
-                <span className="font-bold mr-2">Status:</span>
-                <span className="font-bold mr-5">{asset.status}</span>
-            </div>
+          
             <Link
                 to={`/asset/${asset.id}`}
                 className="button-89"

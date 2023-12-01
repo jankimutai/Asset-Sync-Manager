@@ -26,7 +26,7 @@ function App() {
                 <Route path="/about" element={<About />} />
                 <Route path="/forgot" element={<ForgotPassword/>}></Route>
                 <Route path="/terms and conditions" element={<TermsAndConditions/>}></Route>
-                <Route path="privacy-policy" element={<PrivacyPolicy/>}></Route>
+                <Route path="/privacy-policy" element={<PrivacyPolicy/>}></Route>
                 <Route path="/asset/:id" element={<AssetItem />} />
                 <Route path = "/admin/login" element={<ManagerLogin />}/>
                 <Route path = "/admin/dashboard" element={<AdminDashboard />}/>
