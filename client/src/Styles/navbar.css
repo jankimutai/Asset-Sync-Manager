@@ -1,0 +1,94 @@
+/* navbar.css */
+
+.navbar {
+    background-color: #333;
+    padding: 10px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .nav-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+  }
+  
+  .nav-link {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+  }
+  
+  .right {
+    display: flex;
+    align-items: center;
+  }
+  
+  .logout-button {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
+  .user-profile-dropdown {
+    position: absolute;
+    top: 40px;
+    right: 0;
+    border: 1px solid #ccc;
+    padding: 10px;
+    display: none;
+    color:black;
+    background-color: #ccc;
+    margin-right: 10px;
+    z-index: 1000;
+  }
+  
+  .user-profile-dropdown.show {
+    display: block;
+  }
+  
+  .user-icon {
+    font-size: 1.5em;
+    margin-left: 15px;
+    cursor: pointer;
+  }
+  
+  .user-profile-card {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    background-color: #fff;
+    border-radius: 0.5rem;
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
+    
+    
+  }
+  
+  .user-avatar {
+    margin-right: 1rem;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+    padding: 10px;
+  }
+  
+  .profile-details {
+    font-size: 0.9rem;
+    text-transform: capitalize;
+    font-size: 14px;
+    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  }
+  
+  .profile-details h2 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    text-decoration: underline;
+  }
+  
+  .profile-details p {
+    margin: 0.2rem 0;
+  }
+  

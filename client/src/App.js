@@ -15,6 +15,8 @@ import ManagerLogin from './AdminViews/ManagerLogin';
 import AdminDashboard from './containers/Admin';
 import RequestForm from './components/RequestForm';
 import RequestList from './components/RequestList';
+
+import UserProfileCard from './components/UserProfile';
 function App() {
     return(
         <div>
@@ -34,6 +36,8 @@ function App() {
                 <Route path = "/admin/dashboard" element={<AdminDashboard />}/>
                 <Route path="/requestform" element={<RequestForm/>}></Route>
                 <Route path="/requests" element={<RequestList/>}></Route>
+
+                <Route path="/profile" element={<UserProfileCard />}/>
             </Routes>
             <Footer />
         </div>
