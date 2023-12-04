@@ -33,6 +33,7 @@
   outline: var(--b) solid #0000;
   outline-offset: .6em;
   font-size: 15px;
+  cursor: pointer;
 
   border: 0;
 

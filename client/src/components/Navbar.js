@@ -2,6 +2,7 @@ import React,{useState} from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from './AuthContext';
 import UserProfileCard from './UserProfile';
+import { faHome, faSignInAlt, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignOutAlt, faUser } from '@fortawesome/free-solid-svg-icons';
 import "../Styles/navbar.css"
@@ -29,7 +30,7 @@ function Navbar() {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
-      viewBox="0 0 24 24"
+      viewBox="0 0 20 20"
       stroke="currentColor"
       className="h-6 w-6"
     >
@@ -37,30 +38,29 @@ function Navbar() {
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth="2"
-        d="M15 19l-7-7 7-7"
+        d="M18 19l-6-6 6-5"
       />
     </svg>
   );
 
   return (
-    <nav className="w-full bg-amber-700 shadow z-4">
-      <div className="justify-between px-4 mx-auto lg:max-w-7xl md:items-center md:flex md:px-8">
-        <div className="flex items-center space-x-4">
-          <button
+    <nav className="navbar">
+      <ul className="nav-list">
+        <li><button
             className="text-white hover:text-indigo-200 ml-auto"
             onClick={goBack}
           >
             <BackArrowIcon />
-          </button>
-          <h2 className="text-2xl font-bold text-white">ASSET SYNC MANAGER</h2>
-        </div>
-
-        <div className="flex">
-          <ul className="items-center flex px-10 justify-center space-y-8 md:flex md:space-x-6 md-space-y-0">
-            <li className="text-white hover:text-indigo-200">
-              <NavLink to="/home">Home</NavLink>
-            </li>
-          </ul>
+              
+          </button> Back</li>
+        <li><Link to="/" className="nav-link"><FontAwesomeIcon icon={faHome} /> Home</Link></li>
+        
+      </ul>
+      <ul>
+      <h3 className="font-bold text-white">ASSET SYNC MANAGER</h3>
+      </ul>
+      <ul>
+      <div className="flex">
           <ul className="items-center flex px-10 justify-center space-y-8 md:flex md:space-x-6 md-space-y-0">
             <li className="text-white hover:text-indigo-200">
               <NavLink to="/about">About</NavLink>
@@ -72,13 +72,17 @@ function Navbar() {
             </li>
           </ul>
         </div>
-        {user ? (
+      </ul>
+      {user ? (
         <div className="nav-list right">
           <ul>
-            <button className="logout-button" onClick={logout}><FontAwesomeIcon icon={faSignOutAlt} /> Logout</button>
-
+            <button className="logout-button" onClick={()=>{
+              navigate("/login")
+              logout()
+            }}><FontAwesomeIcon icon={faSignOutAlt} /> Logout</button>
           </ul>
-          
+          <ul>
+          </ul>
           <div className={`user-profile-dropdown ${isProfileHovered ? 'show' : ''}`}>
             {isProfileHovered && <UserProfileCard />}
           </div>
@@ -87,19 +91,13 @@ function Navbar() {
               <FontAwesomeIcon icon={faUser} />
             </div>
           </>
-          <ul className="mb-2" style={{fontSize: '20px',padding:"10px",textTransform: 'uppercase'}}>Welcome, {user.username}</ul>
         </div>
-          ) : (
-            <>
-            <div className="px-4 py-1 text-gray-800 bg-white rounded-md shadow hover:bg-gray-100">
-              <Link to="/register">Register</Link>
-            </div>
-            <div className="px-4 py-1 text-gray-800 bg-white rounded-md shadow hover:bg-gray-100">
-              <Link to="/login">Login</Link>
-            </div>
-          </>
-          )}
-        </div>
+      ) : (
+        <ul className="nav-list right">
+          <li><Link to="/login" className="nav-link"><FontAwesomeIcon icon={faSignInAlt} /> Login</Link></li>
+          <li><Link to="/register" className="nav-link"><FontAwesomeIcon icon={faUserPlus} /> Register</Link></li>
+        </ul>
+      )}
     </nav>
   );
 }

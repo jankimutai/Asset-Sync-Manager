@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Swal from 'sweetalert2';
-
-const RequestForm = () => {
+import "../Styles/request-form.css"
+const RequestForm = ({onClose}) => {
   const [formData, setFormData] = useState({
     assetName: '',
     description: '',
@@ -18,9 +18,17 @@ const RequestForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    if (!formData.assetName || !formData.description || !formData.quantity || !formData.urgency) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Validation Error',
+        text: 'All fields must be filled.',
+      });
+      return;
+    }
     try {
-      const response = await fetch('http://localhost:5000/requests', {
+      
+      const response = await fetch('http://localhost:5555/requests', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -50,8 +58,6 @@ const RequestForm = () => {
       Swal.fire({
         icon: 'success',
         title: 'Request submitted successfully!',
-        showConfirmButton: false,
-        timer: 1500,
       });
 
       console.log('Request submitted successfully');
@@ -68,7 +74,9 @@ const RequestForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-md mx-auto mt-8 p-6 bg-blue-100 rounded-md shadow-md">
+    <div className="overlay">
+      <div className="form-container">
+      <form onSubmit={handleSubmit} className="max-w-md mx-auto mt-8 p-6 bg-blue-100 rounded-md shadow-md">
       <label className="block text-gray-700 text-sm font-bold mb-2">
         Asset Name:
         <input
@@ -121,6 +129,11 @@ const RequestForm = () => {
         Submit Request
       </button>
     </form>
+      </div>
+      <button onClick={onClose} className="bg-gray-300 p-2 rounded-md mt-4">
+          Close
+        </button>
+    </div>
   );
 };
 

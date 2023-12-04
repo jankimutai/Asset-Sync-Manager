@@ -40,6 +40,7 @@ export const AuthProvider = ({ children }) => {
           title: 'Logout Successful',
           text: 'You have successfully logged out!',
         });
+
       })
       .catch((error) => {
         console.error('Logout error:', error);

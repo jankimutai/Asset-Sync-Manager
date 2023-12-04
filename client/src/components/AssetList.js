@@ -5,6 +5,7 @@ import "../Styles/assets.css";
 import { Link } from 'react-router-dom';
 const AssetList = () => {
   const [assets, setInventoryData] = useState([]);
+
   const [currentPage, setCurrentPage] = useState(1);
   const [assetsPerPage] = useState(3); 
 
@@ -21,12 +22,12 @@ const AssetList = () => {
       console.error('Error fetching inventory data:', error);
     }
   };
+  
   const indexOfLastAsset = currentPage * assetsPerPage;
   const indexOfFirstAsset = indexOfLastAsset - assetsPerPage;
   const currentAssets = assets.slice(indexOfFirstAsset, indexOfLastAsset);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
   return (
     <>
     <>

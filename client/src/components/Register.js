@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2'
-
-
+import { useAuth } from './AuthContext';
 function Register() {
   const navigate = useNavigate()
+  const { login } = useAuth();
   const [user, setUser] = useState({
     full_name: '',
     username: '',
@@ -56,29 +56,39 @@ function Register() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    fetch('http://127.0.0.1:5555/registration', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(user),
-    })
-      .then((resp) => resp.json())
-      .then((data) => {
-        console.log(data)
+    try {
+      const response = await fetch('http://127.0.0.1:5555/registration', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(user),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        login(data);
+
         Swal.fire({
           icon: 'success',
           title: 'Success',
-          text: 'You have successfully registered your account.'
-        })
-        navigate("/login")
-      })
-      .catch((error) => console.error('Error:', error));
+          text: 'You have successfully registered your account.',
+        });
+        navigate('/home');
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Registration Error',
+          text: 'An error occurred during registration. Please try again later.',
+        });
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
-
   return (
     <div className="flex items-center justify-center h-screen">
       <div className="w-full max-w-md">
@@ -113,7 +123,7 @@ function Register() {
 
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
-              E-mail or phone number
+              E-mail
             </label>
             <input
               type="email"

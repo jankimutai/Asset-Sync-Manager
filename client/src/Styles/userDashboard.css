@@ -1,0 +1,160 @@
+/* userDashboard.css */
+
+/* Section styles */
+
+  
+.green-icon {
+    color: green; /* Add your desired green color */
+  }
+  
+  .red-icon {
+    color: red; /* Add your desired red color */
+  }
+  .times {
+    color: #2eb0b8; /* Specify the color you want */
+  }
+  
+  .dashboard {
+    display: flex;
+    justify-content: space-evenly;
+    margin: auto;
+    padding: 10px;
+    border-radius: 8px;
+    width:80%;
+    background-color: #f0f0f0; 
+  }
+  
+  .dashboard-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .dashboard-item-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 60px;
+    width: 60px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+  }
+  
+  .dashboard-item-label {
+    font-size: 14px;
+    font-weight: bold;
+
+
+  }
+  
+  .dashboard-item-count {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  .dashboard-item-icon {
+    margin-left: 1px;
+    font-size: 18px;
+  }
+  
+  .dashboard-item-label {
+    font-size: 15px;
+    margin-top: 10px;
+  }
+  
+.user-request-list-container {
+  width: 80%;
+  margin: auto;
+}
+
+.error-message {
+  color: red;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.no-requests-message {
+  font-style: italic;
+  margin-bottom: 10px;
+}
+
+.request-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.request-table th, .request-table td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+.table-heading {
+  text-align: center;
+  font-size: 1.5em;
+  font-weight: bold;
+  padding: 10px;
+  margin: auto;
+}
+
+.request-table th {
+  background-color: #f2f2f2;
+}
+
+.approved-status {
+  color: green;
+}
+
+.rejected-status {
+  color: red;
+}
+/* userDashboard.css */
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.pagination button {
+  margin: 0 5px;
+  padding: 8px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.assignment-cont{
+  margin-top: 10px;
+}
+
+/* Your CSS file */
+.assignments-container {
+  margin-top: 20px;
+  width:80%;
+  margin:auto
+}
+
+.assignments-heading {
+  color: #333;
+  font-size: 24px;
+}
+
+.assignments-table {
+  width: 100%;
+  border-collapse: collapse;
+  
+}
+
+.assignments-table th, .assignments-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.assignments-table th {
+  background-color: #f2f2f2;
+}
