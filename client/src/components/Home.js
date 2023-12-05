@@ -101,17 +101,19 @@ const Dashboard = () => {
         <div className="dashboard-item">
           <div className="dashboard-item-content">
             <div className="dashboard-item-count">{approvedCount}</div>
-            <div className="dashboard-item-icon green-icon"><FaRegCalendarCheck /></div>
+            <div className="dashboard-item-icon green-icon"><FaCheckCircle /></div>
+            
           </div>
-          <div className="dashboard-item-label">Approved Requests</div>
+          <div className="dashboard-item-label">Completed Requests</div>
         </div>
 
         <div className="dashboard-item">
           <div className="dashboard-item-content">
             <div className="dashboard-item-count">{pendingCount}</div>
-            <div className="dashboard-item-icon green-icon"><FaCheckCircle /></div>
+            
+            <div className="dashboard-item-icon green-icon"><FaRegCalendarCheck /></div>
           </div>
-          <div className="dashboard-item-label">Pending Requests</div>
+          <div className="dashboard-item-label">Active Requests</div>
         </div>
 
         <div className="dashboard-item">
@@ -133,9 +135,6 @@ const Dashboard = () => {
       <section>
         <div className="user-request-list-container">
           {error && <p className="error-message">Error: {error}</p>}
-          {userRequests.length === 0 ? (
-            <p className="no-requests-message">User has no requests.</p>
-          ) : (
             <div>
               <table className="request-table">
               <thead>
@@ -194,8 +193,7 @@ const Dashboard = () => {
                 </button>
               </div>
             </div>
-          )}
-        </div>
+           </div>
   
     </section>
     <section className='assignment-cont'>

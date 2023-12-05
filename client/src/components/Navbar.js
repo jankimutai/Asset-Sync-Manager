@@ -5,6 +5,7 @@ import UserProfileCard from './UserProfile';
 import { faHome, faSignInAlt, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignOutAlt, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faInfo, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import "../Styles/navbar.css"
 function Navbar() {
   const { user, logout } = useAuth();
@@ -52,38 +53,44 @@ function Navbar() {
           >
             <BackArrowIcon />
               
-          </button> Back</li>
-        <li><Link to="/" className="nav-link"><FontAwesomeIcon icon={faHome} /> Home</Link></li>
+          </button></li>
+        <li><Link to="/" className="nav-link hover:text-indigo-200"><FontAwesomeIcon icon={faHome} /> Home</Link></li>
         
       </ul>
       <ul>
-      <h3 className="font-bold text-white">ASSET SYNC MANAGER</h3>
+      <h3 className="font-bold text-white hover:text-indigo-200">ASSET SYNC MANAGER</h3>
       </ul>
       <ul>
       <div className="flex">
-          <ul className="items-center flex px-10 justify-center space-y-8 md:flex md:space-x-6 md-space-y-0">
-            <li className="text-white hover:text-indigo-200">
-              <NavLink to="/about">About</NavLink>
-            </li>
-          </ul>
-          <ul className="items-center flex px-10 justify-center space-y-8 md:flex md:space-x-6 md-space-y-0">
-            <li className="text-white hover:text-indigo-200">
-              <NavLink to="/contact">Contact Us</NavLink>
-            </li>
-          </ul>
-        </div>
+      <ul className="items-center flex px-10 justify-center space-y-8 md:flex md:space-x-6 md-space-y-0">
+        <li className="text-white hover:text-indigo-200">
+          <NavLink to="/about">
+            <FontAwesomeIcon icon={faInfo} className="mr-2" />
+            About
+          </NavLink>
+        </li>
+      </ul>
+      <ul className="items-center flex px-10 justify-center space-y-8 md:flex md:space-x-6 md-space-y-0">
+        <li className="text-white hover:text-indigo-200">
+          <NavLink to="/contact">
+            <FontAwesomeIcon icon={faEnvelope} className="mr-2" />
+            Contact Us
+          </NavLink>
+        </li>
+      </ul>
+    </div>
       </ul>
       {user ? (
-        <div className="nav-list right">
+        <div className="nav-list right ">
           <ul>
-            <button className="logout-button" onClick={()=>{
+            <button className="logout-button hover:text-indigo-200" onClick={()=>{
               navigate("/login")
               logout()
             }}><FontAwesomeIcon icon={faSignOutAlt} /> Logout</button>
           </ul>
           <ul>
           </ul>
-          <div className={`user-profile-dropdown ${isProfileHovered ? 'show' : ''}`}>
+          <div className={`user-profile-dropdown hover:text-indigo-200 ${isProfileHovered ? 'show' : '' }`}>
             {isProfileHovered && <UserProfileCard />}
           </div>
           <>
@@ -94,8 +101,8 @@ function Navbar() {
         </div>
       ) : (
         <ul className="nav-list right">
-          <li><Link to="/login" className="nav-link"><FontAwesomeIcon icon={faSignInAlt} /> Login</Link></li>
-          <li><Link to="/register" className="nav-link"><FontAwesomeIcon icon={faUserPlus} /> Register</Link></li>
+          <li><Link to="/login" className="nav-link hover:text-indigo-200"><FontAwesomeIcon icon={faSignInAlt} /> Login</Link></li>
+          <li><Link to="/register" className="nav-link hover:text-indigo-200"><FontAwesomeIcon icon={faUserPlus} /> Register</Link></li>
         </ul>
       )}
     </nav>
