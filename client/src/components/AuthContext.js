@@ -12,7 +12,7 @@ export const AuthProvider = ({ children }) => {
         const response = await fetch('http://127.0.0.1:5555/session_user', {
           credentials: 'include',
         });
-
+  
         if (response.ok) {
           const data = await response.json();
           setUser(data);
@@ -21,7 +21,7 @@ export const AuthProvider = ({ children }) => {
         console.error('Error fetching session:', error);
       }
     };
-
+  
     fetchUserSession();
   }, []);
 

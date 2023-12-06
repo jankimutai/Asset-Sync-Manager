@@ -74,7 +74,7 @@ function ManagerLogin({handleLogin}) {
   
   return (
     <div>
-      <section className="h-screen bg-black bg-opacity-81">
+      <section className="h-screen bg-opacity-81">
   <div className="h-full mb-2 p-10">
     <div
       className="g-6 flex h-full flex-wrap items-center justify-center lg:justify-around">

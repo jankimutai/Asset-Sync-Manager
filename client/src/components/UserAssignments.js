@@ -5,7 +5,7 @@ const AssignmentComponent = () => {
   const [assignments, setAssignments] = useState([]);
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const assignmentsPerPage = 5; // Fixed value for assignments per page
+  const assignmentsPerPage = 5; 
 
   useEffect(() => {
     const fetchAssignments = async () => {

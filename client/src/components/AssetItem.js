@@ -95,7 +95,7 @@ const AssetItem = () => {
     <section className='asset-item-container'>
         <div className="asset-item-small">
         {editMode ? (
-        <form onSubmit={handleFormSubmit}>
+        <form onSubmit={handleFormSubmit} className='edit-form'>
             <div>
             <label>
               Asset Name:
@@ -190,51 +190,60 @@ const AssetItem = () => {
           </form>
           ) : (
             <>
-                <div className="flex mb-2">
-                    <img
-                        src={asset.image_url}
-                        alt={asset.asset_name}
-                        className="asset-image-small"
-                    />
-                </div>
-                <h2 className="text-lg font-bold mb-4">{asset.asset_name}</h2>
-    
-                <div className="mb-2">
-                    <span className="font-bold mr-2">Model:</span>
-                    <span>{asset.model}</span>
-                </div>
-    
-                <div className="mb-2">
-                    <span className="font-bold mr-2">Manufacturer:</span>
-                    <span>{asset.manufacturer}</span>
-                </div>
-    
-                <div className="mb-2">
-                    <span className="font-bold mr-2">Date Purchased:</span>
-                    <span>{asset.date_purchased}</span>
-                </div>
-    
-                <div className="mb-2">
-                    <span className="font-bold mr-2">Purchase Cost:</span>
-                    <span>Ksh.{asset.purchase_cost}</span>
-                </div>
-    
-                <div className="mb-2">
-                    <span className="font-bold mr-2">Status:</span>
-                    <span>{asset.status}</span>
-                </div>
-    
-                <div className="mb-2">
-                    <span className="font-bold mr-2">Category:</span>
-                    <span>{asset.category}</span>
-                </div>
-    
-                <div>
-                    <span className="font-bold mr-2">Serial Number:</span>
-                    <span>{asset.serial_number}</span>
-                </div>
-                <button className='button-89' onClick={handleEditClick} >Edit</button>
-                <button className='button-89' onClick={handleDelete}>Delete</button> 
+
+              <div className="asset-details-container">
+                 <div className='image-container'>
+                 <img
+                      src={asset.image_url}
+                      alt={asset.asset_name}
+                      className="asset-image-small"
+                  />
+                 </div>
+                  <div className='asset-detail-container'>
+                  <h2 className="asset-name">{asset.asset_name}</h2>
+
+                    <div className="asset-detail">
+                        <span className="detail-label">Model:</span>
+                        <span>{asset.model}</span>
+                    </div>
+
+                    <div className="asset-detail">
+                        <span className="detail-label">Manufacturer:</span>
+                        <span>{asset.manufacturer}</span>
+                    </div>
+
+                    <div className="asset-detail">
+                        <span className="detail-label">Date Purchased:</span>
+                        <span>{asset.date_purchased}</span>
+                    </div>
+
+                    <div className="asset-detail">
+                        <span className="detail-label">Purchase Cost:</span>
+                        <span>Ksh.{asset.purchase_cost}</span>
+                    </div>
+
+                    <div className="asset-detail">
+                        <span className="detail-label">Status:</span>
+                        <span>{asset.status}</span>
+                    </div>
+
+                    <div className="asset-detail">
+                        <span className="detail-label">Category:</span>
+                        <span>{asset.category}</span>
+                    </div>
+
+                    <div className="asset-detail">
+                        <span className="detail-label">Serial Number:</span>
+                        <span>{asset.serial_number}</span>
+                    </div>
+
+                    <button className="button-89" onClick={handleEditClick}>Edit</button>
+                    <button className="button-89" onClick={handleDelete}>Delete</button>
+                  </div>
+
+                  
+              </div>
+
             </> 
         )}
       </div>

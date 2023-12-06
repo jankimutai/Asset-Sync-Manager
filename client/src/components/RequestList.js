@@ -2,10 +2,8 @@ import React, { useState, useEffect } from 'react';
 
 const RequestList = () => {
   const [requests, setRequests] = useState([]);
-
-  // Fetch requests from your backend API
+  
   useEffect(() => {
-    // Replace the URL with your actual backend API endpoint
     fetch('http://127.0.0.1:5000/requests')
       .then((response) => response.json())
       .then((data) => setRequests(data))

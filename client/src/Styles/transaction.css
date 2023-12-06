@@ -1,17 +1,17 @@
-/* allAssignments.css */
-
-.all-assignments-container {
+/* Transaction Container */
+.transaction-container {
   margin: auto;
   width: 80%;
-
 }
 
-.assignment-table {
+/* Transaction Table */
+.transaction-table {
   
   border-collapse: collapse;
   margin-top: 20px;
 }
 
+/* Table Heading */
 .table-heading {
   font-size: 1.2rem;
   font-weight: bold;
@@ -21,23 +21,23 @@
   padding: 10px;
 }
 
-.assignment-table th {
+/* Table Header */
+.transaction-table th {
   background-color: #333;
   color: #fff;
   padding: 10px;
   text-align: left;
-  cursor: pointer;
 }
 
-.assignment-table tbody tr:nth-child(even) {
+/* Table Body */
+.transaction-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+}
+
+/* Alternating Row Colors */
+.transaction-table tbody tr:nth-child(even) {
   background-color: #f2f2f2;
 }
 
-.asset-name-item,
-.assigned-user,
-.assignment-date,
-.return-date {
-  border: 1px solid #ddd;
-  padding: 10px;
-  text-align: center;
-}
+

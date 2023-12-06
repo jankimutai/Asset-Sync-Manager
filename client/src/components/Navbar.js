@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignOutAlt, faUser } from '@fortawesome/free-solid-svg-icons';
 import { faInfo, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import "../Styles/navbar.css"
+
 function Navbar() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();

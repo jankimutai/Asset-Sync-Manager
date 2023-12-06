@@ -3,15 +3,16 @@ import AssetList from '../components/AssetList'
 import TransactionList from '../components/TransactionsList'
 import AllAssignments from '../components/AssignmentList'
 import Manager from "../components/dashboard/Manager"
+import "../Styles/manager.css"
 function AdminDashboard() {
   return (
-    <div>
+    <section >
       <AssetList />
-      <TransactionList />
+      <TransactionList/>
       <AllAssignments />  
       <Manager />
      
-    </div>
+    </section>
   )
 }
 

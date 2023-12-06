@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-
+import "../Styles/transaction.css"
 const TransactionList = () => {
   const [transactions, setTransactions] = useState([]);
 
@@ -22,10 +22,13 @@ const TransactionList = () => {
   }, []);
 
   return (
-    <div>
-      <h2>All Transactions</h2>
-      <table>
+    <div className="transaction-container">
+
+      <table className="transaction-table">
         <thead>
+          <tr>
+            <th colSpan="4" className="table-heading">All Transactions</th>
+          </tr>
           <tr>
             <th>Transaction ID</th>
             <th>Asset ID</th>
@@ -45,6 +48,7 @@ const TransactionList = () => {
         </tbody>
       </table>
     </div>
+
   );
 };
 
