@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Swal from 'sweetalert2';
-import "../Styles/asset-form.css";
+import '../Styles/asset-form.css';
 
 const AssetForm = () => {
   const [formData, setFormData] = useState({
@@ -15,7 +15,7 @@ const AssetForm = () => {
       [e.target.name]: e.target.value,
     });
   };
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.assetName || !formData.category || !formData.imageUrl) {
@@ -32,27 +32,27 @@ const AssetForm = () => {
       formDataToSend.append('category', formData.category);
       formDataToSend.append('image', formData.imageUrl);
       formDataToSend.append('user_id', 1);
-  
+
       const response = await fetch('http://localhost:5555/assets', {
         method: 'POST',
         body: formDataToSend,
       });
-  
+
       if (!response.ok) {
         throw new Error('Failed');
       }
-  
+
       setFormData({
         assetName: '',
         category: '',
         imageUrl: '',
       });
-  
+
       Swal.fire({
         icon: 'success',
         title: 'Asset submitted successfully!',
       });
-  
+
       console.log('Asset submitted successfully');
     } catch (error) {
       console.error('Error submitting asset:', error);
@@ -64,45 +64,57 @@ const AssetForm = () => {
     }
   };
 
+  const [showForm, setShowForm] = useState(false);
+
+  const toggleFormVisibility = () => {
+    setShowForm(!showForm);
+  };
+
   return (
     <div className='overlay-background'>
-      <div className='form-container'>
-        <form onSubmit={handleSubmit}>
-          <label htmlFor="assetName">Asset Name:</label>
-          <input
-            type="text"
-            id="assetName"
-            name="assetName"
-            value={formData.assetName}
-            onChange={handleChange}
-            placeholder="Enter asset name"
-          />
+      <button onClick={toggleFormVisibility}>
+        {showForm ? 'Hide Form' : 'Asset Form'}
+      </button>
 
-          <label htmlFor="category">Category:</label>
-          <input
-            type="text"
-            id="category"
-            name="category"
-            value={formData.category}
-            onChange={handleChange}
-            placeholder="Enter category"
-          />
+      {showForm && (
+        <div className='form-container'>
+          <form onSubmit={handleSubmit}>
+            <label htmlFor='assetName'>Asset Name:</label>
+            <input
+              type='text'
+              id='assetName'
+              name='assetName'
+              value={formData.assetName}
+              onChange={handleChange}
+              placeholder='Enter asset name'
+            />
 
-          <label htmlFor="imageUrl">Image URL:</label>
-          <input
-            type="url"
-            id="imageUrl"
-            name="imageUrl"
-            value={formData.imageUrl}
-            onChange={handleChange}
-            placeholder='Enter url'
-          />
+            <label htmlFor='category'>Category:</label>
+            <input
+              type='text'
+              id='category'
+              name='category'
+              value={formData.category}
+              onChange={handleChange}
+              placeholder='Enter category'
+            />
 
-          <button type="submit">
-            Submit Asset
-          </button>
-        </form>
-      </div>
-   </div>
-  )}
- export default AssetForm
+            <label htmlFor='imageUrl'>Image URL:</label>
+            <input
+              type='url'
+              id='imageUrl'
+              name='imageUrl'
+              value={formData.imageUrl}
+              onChange={handleChange}
+              placeholder='Enter url'
+            />
+
+            <button type='submit'>Submit Asset</button>
+          </form>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default AssetForm;
