@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Swal from 'sweetalert2';
 import '../Styles/asset-form.css';
 
-const AssetForm = () => {
+const AssetForm = ({ toggleFormVisibility }) => {
   const [formData, setFormData] = useState({
     assetName: '',
     category: '',
@@ -54,6 +54,7 @@ const AssetForm = () => {
       });
 
       console.log('Asset submitted successfully');
+      toggleFormVisibility();
     } catch (error) {
       console.error('Error submitting asset:', error);
       Swal.fire({
@@ -64,19 +65,12 @@ const AssetForm = () => {
     }
   };
 
-  const [showForm, setShowForm] = useState(false);
 
-  const toggleFormVisibility = () => {
-    setShowForm(!showForm);
-  };
 
   return (
     <div className='overlay-background'>
-      <button onClick={toggleFormVisibility}>
-        {showForm ? 'Hide Form' : 'Asset Form'}
-      </button>
 
-      {showForm && (
+     
         <div className='form-container'>
           <form onSubmit={handleSubmit}>
             <label htmlFor='assetName'>Asset Name:</label>
@@ -112,7 +106,7 @@ const AssetForm = () => {
             <button type='submit'>Submit Asset</button>
           </form>
         </div>
-      )}
+     
     </div>
   );
 };
