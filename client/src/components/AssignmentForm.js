@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import '../Styles/assignment.css';
 import Swal from 'sweetalert2';
 
-
-const AssignmentComponent = () => {
+const AssignmentComponent = ({ onClose }) => {
   const [formData, setFormData] = useState({
     asset_id: '',
     user_id: '',
@@ -13,18 +12,16 @@ const AssignmentComponent = () => {
 
   const handleCreateAssignment = async () => {
     if (!formData.asset_id || !formData.user_id || !formData.assignment_date || !formData.return_date) {
-      
-        Swal.fire({
-          title: 'Error!',
-          text: 'Please fill in all fields.',
-          icon: 'error',
-          confirmButtonText: 'OK',
-        });
-        return;
-      }
+      Swal.fire({
+        title: 'Error!',
+        text: 'Please fill in all fields.',
+        icon: 'error',
+        confirmButtonText: 'OK',
+      });
+      return;
+    }
     try {
-        
-      const response = await fetch('http://127.0.0.1:5555/assignments', {
+      const response = await fetch('http://127.0.0.1:5550/assignments', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -65,17 +62,22 @@ const AssignmentComponent = () => {
     }
   };
 
+  const handleClose = () => {
+    onClose();
+  };
 
   return (
     <div className="max-w-2xl mx-auto mt-8">
-      <h1 className="text-2xl font-bold mb-4">Create Assignment</h1>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          handleCreateAssignment();
-        }}
-        className="mb-8"
-      >
+      <div className="flex justify-between items-center">
+        <h1 className="text-2xl font-bold mb-4">Create Assignment</h1>
+        <button type="button" onClick={handleClose} className="close-button" aria-label="Close">
+          X
+        </button>
+      </div>
+      <form onSubmit={(e) => {
+        e.preventDefault();
+        handleCreateAssignment();
+      }} className="mb-8">
         <label className="custom-label">
           Asset ID:
           <input
@@ -85,7 +87,7 @@ const AssignmentComponent = () => {
             onChange={(e) => setFormData({ ...formData, asset_id: e.target.value })}
           />
         </label>
-        <br />
+
         <label className="custom-label">
           User ID:
           <input
@@ -95,7 +97,7 @@ const AssignmentComponent = () => {
             onChange={(e) => setFormData({ ...formData, user_id: e.target.value })}
           />
         </label>
-        <br />
+        
         <label className="custom-label">
           Assignment Date:
           <input
@@ -105,7 +107,7 @@ const AssignmentComponent = () => {
             onChange={(e) => setFormData({ ...formData, assignment_date: e.target.value })}
           />
         </label>
-        <br />
+        
         <label className="custom-label">
           Return Date:
           <input
@@ -115,16 +117,10 @@ const AssignmentComponent = () => {
             onChange={(e) => setFormData({ ...formData, return_date: e.target.value })}
           />
         </label>
-        <br />
-        <button
-          type="submit"
-          className="custom-button"
-        >
+        <button type="submit" className="custom-button">
           Create Assignment
         </button>
       </form>
-
-      
     </div>
   );
 };
