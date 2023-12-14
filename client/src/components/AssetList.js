@@ -4,25 +4,28 @@ import { ArrowRightIcon, ArrowLeftIcon } from "@heroicons/react/24/outline";
 import "../Styles/assets.css";
 import { Link } from 'react-router-dom';
 const AssetList = () => {
-  const [assets, setInventoryData] = useState([]);
-
+  const [assets, setAssets] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [assetsPerPage] = useState(3); 
+  const [assetsPerPage] = useState(3);
 
   useEffect(() => {
     fetchInventoryData();
+    const pollInterval = setInterval(() => {
+      fetchInventoryData();
+    }, 7000);
+    return () => clearInterval(pollInterval);
   }, []);
 
   const fetchInventoryData = async () => {
     try {
       const response = await fetch('http://127.0.0.1:5555/assets');
       const data = await response.json();
-      setInventoryData(data);
+      setAssets(data);
     } catch (error) {
       console.error('Error fetching inventory data:', error);
     }
   };
-  
+
   const indexOfLastAsset = currentPage * assetsPerPage;
   const indexOfFirstAsset = indexOfLastAsset - assetsPerPage;
   const currentAssets = assets.slice(indexOfFirstAsset, indexOfLastAsset);

@@ -46,14 +46,17 @@ function ManagerLogin({handleLogin}) {
         }
       })
       .then((userData) => {
-  
-        if (userData && (userData.role === 'Admin' || userData.role === 'Procurement Manager' || userData.role === 'admin')){
+        if (userData && (userData.role === 'Admin' || userData.role === 'Procurement')){
           Swal.fire({
             icon: 'success',
             title: 'Login Successful',
             text: 'You have successfully logged in!',
           });
-          navigate('/admin/dashboard');
+          if (userData.role === 'Admin' || userData.role === "admin") {
+            navigate('/admin/dashboard');
+          } else if (userData.role === 'Procurement') {
+            navigate('/procurement/dashboard');
+          }
           setEmail('');
           setPassword('');
           login(userData);

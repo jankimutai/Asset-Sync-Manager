@@ -15,7 +15,7 @@ import ManagerLogin from './AdminViews/ManagerLogin';
 import AdminDashboard from './containers/Admin';
 import RequestForm from './components/RequestForm';
 import RequestList from './components/RequestList';
-
+import ProcurementDashboard from './containers/ProcurementView';
 import UserProfileCard from './components/UserProfile';
 function App() {
     return(
@@ -36,6 +36,7 @@ function App() {
                 <Route path = "/admin/dashboard" element={<AdminDashboard />}/>
                 <Route path="/requestform" element={<RequestForm/>}></Route>
                 <Route path="/requests" element={<RequestList/>}></Route>
+                <Route path='/procurement/dashboard' element={<ProcurementDashboard />} />
 
                 <Route path="/profile" element={<UserProfileCard />}/>
             </Routes>

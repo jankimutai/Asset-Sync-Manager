@@ -10,12 +10,12 @@ const UserProfileCard = () => {
     return (
         <div className='user-profile-card'>
         <div className="user-avatar">
-            <FaUser size={36} />
+            <FaUser size={30} />
         </div>
         <div className="profile-details">
-            <p><span className="label">Username:</span> <span className="value">{user.username}</span></p>
-            <p><span className="label">Role:</span> <span className="value">{user.role}</span></p>
-            <p><span className="label">Department:</span> <span className="value">{user.department}</span></p>
+            <p><span className="label">Username: <span className="value">{user.username}</span></span></p>
+            <p><span className="label">Role: <span className="value">{user.role}</span></span></p>
+            <p><span className="label">Department: <span className="value">{user.department}</span></span></p>
         </div>
         </div>
 

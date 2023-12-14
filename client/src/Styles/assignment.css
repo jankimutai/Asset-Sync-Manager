@@ -14,7 +14,7 @@
 }
 
 .custom-button {
-  background-color: #3490dc;
+  background-color: #19598d;
   color: #ffffff;
   padding: 0.5rem 1rem;
   font-size: 1rem;
@@ -24,7 +24,7 @@
 }
 
 .custom-button:hover {
-  background-color: #2779bd;
+  background-color: #19596d;
 }
 
 form{

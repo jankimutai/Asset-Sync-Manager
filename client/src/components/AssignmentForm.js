@@ -21,7 +21,7 @@ const AssignmentComponent = ({ onClose }) => {
       return;
     }
     try {
-      const response = await fetch('http://127.0.0.1:5550/assignments', {
+      const response = await fetch('http://127.0.0.1:5555/assignments', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

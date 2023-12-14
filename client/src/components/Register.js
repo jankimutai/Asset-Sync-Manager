@@ -77,7 +77,7 @@ function Register() {
           title: 'Success',
           text: 'You have successfully registered your account.',
         });
-        navigate('/home');
+        navigate('/login');
       } else {
         Swal.fire({
           icon: 'error',
@@ -159,9 +159,9 @@ function Register() {
               className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             >
               <option value="" disabled>Select Role</option>
-              <option value="employee">Employee</option>
-              <option value="admin">Admin</option>
-              <option value="procurement">Procurement Manager</option>
+              <option value="Employee">Employee</option>
+              <option value="Admin">Admin</option>
+              <option value="Procurement">Procurement Manager</option>
             </select>
           </div>
 

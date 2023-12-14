@@ -4,8 +4,9 @@ import AssetForm from '../components/AssetForm';
 import AssignmentComponent from '../components/AssignmentForm';
 import '../Styles/userDashboard.css';
 import AllAssignments from '../components/AssignmentList';
-import TransactionList from '../components/TransactionsList';
+
 import AssetList from '../components/AssetList';
+import RequestList from '../components/RequestList';
 
 const AdminDashboard = () => {
   const [showAddAssetForm, setShowAddAssetForm] = useState(false);
@@ -30,7 +31,7 @@ const AdminDashboard = () => {
   useEffect(() => {
     const fetchAssetCounts = async () => {
       try {
-        const response = await fetch('http://localhost:5555/assets/count', {
+        const response = await fetch('http://localhost:5555/assets', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -38,14 +39,20 @@ const AdminDashboard = () => {
         });
 
         if (!response.ok) {
-          throw new Error('Error fetching asset counts');
+          throw new Error('Error fetching assets');
         }
 
         const data = await response.json();
-        setActiveAssetsCount(data.activeAssetsCount);
-        setUnderMaintenanceAssetsCount(data.underMaintenanceAssetsCount);
-        setPendingAssetsCount(data.pendingAssetsCount);
-        setTotalAssetsCount(data.totalAssetsCount);
+        
+        // Count the assets based on their status
+        const activeCount = data.filter(asset => asset.status === 'Active').length;
+        const underMaintenanceCount = data.filter(asset => asset.status === 'Under Maintenance').length;
+        const pendingCount = data.filter(asset => asset.status === 'Pending').length;
+        
+        setActiveAssetsCount(activeCount);
+        setUnderMaintenanceAssetsCount(underMaintenanceCount);
+        setPendingAssetsCount(pendingCount);
+        setTotalAssetsCount(data.length);
       } catch (error) {
         console.error(error.message);
       }
@@ -68,10 +75,6 @@ const AdminDashboard = () => {
         const statusCode = response.status;
         throw new Error(`Error creating asset: ${statusCode}`);
       }
-
-      setActiveAssetsCount(activeAssetsCount + 1);
-      setTotalAssetsCount(totalAssetsCount + 1);
-
       setFormData({
         assetName: '',
         model: '',
@@ -108,7 +111,7 @@ const AdminDashboard = () => {
             <FaPlusCircle />
           </div>
         </div>
-        <div className="dashboard-item-label">Add an Assignment</div>
+        <div className="dashboard-item-label">Allocate an Asset</div>
       </div>
         <div className="dashboard-item">
           <div className="dashboard-item-content">
@@ -162,6 +165,7 @@ const AdminDashboard = () => {
           <AssignmentComponent onClose={() => setShowAddAssignmentForm(false)} />
         </div>
       )}
+  
 
       <div className="dashboard-section">
         <AssetList />
@@ -170,10 +174,14 @@ const AdminDashboard = () => {
       <div className="dashboard-section">
         <AllAssignments />
       </div>
-
       <div className="dashboard-section">
-        <TransactionList />
+        <RequestList />
+
       </div>
+
+      {/* <div className="dashboard-section">
+        <TransactionList />
+      </div> */}
     </section>
   );
 };

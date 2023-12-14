@@ -8,13 +8,11 @@ function Signin({handleLogin}) {
   const { login } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  
-  const navigate = useNavigate()
-  
+  const navigate = useNavigate();
 
   function handleSubmit(e) {
     e.preventDefault();
-  
+
     if (!email || !password) {
       Swal.fire({
         icon: 'error',
@@ -23,7 +21,7 @@ function Signin({handleLogin}) {
       });
       return;
     }
-  
+
     fetch('http://127.0.0.1:5555/login', {
       method: 'POST',
       headers: {
@@ -33,12 +31,6 @@ function Signin({handleLogin}) {
     })
       .then((response) => {
         if (response.status === 201) {
-          Swal.fire({
-            icon: 'success',
-            title: 'Login Successful',
-            text: 'You have successfully logged in!',
-          });
-          navigate('/home');
           return response.json();
         } else if (response.status === 401) {
           Swal.fire({
@@ -65,11 +57,15 @@ function Signin({handleLogin}) {
             text: 'An error occurred. Please try again later.',
           });
         }
+        throw new Error('Authentication failed');
       })
       .then((userData) => {
         setEmail('');
         setPassword('');
+        // Store user information in sessionStorage
+        sessionStorage.setItem('userData', JSON.stringify(userData));
         login(userData);
+        navigate('/home');
       })
       .catch((error) => {
         console.error('Login error:', error);

@@ -3,6 +3,8 @@ import "../Styles/allAssignments.css";
 
 const AllAssignments = () => {
   const [assignments, setAssignments] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [assignmentsPerPage] = useState(10);
 
   useEffect(() => {
     const fetchAssignments = async () => {
@@ -22,14 +24,21 @@ const AllAssignments = () => {
     fetchAssignments();
   }, []);
 
+  const indexOfLastAssignment = currentPage * assignmentsPerPage;
+  const indexOfFirstAssignment = indexOfLastAssignment - assignmentsPerPage;
+  const currentAssignments = assignments.slice(indexOfFirstAssignment, indexOfLastAssignment);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
   return (
     <div className="all-assignments-container">
       <table className="assignment-table">
         <thead>
           <tr>
-            <th colSpan="4" className="table-heading">All Assignments</th>
+            <th colSpan="5" className="table-heading">All Assignments</th>
           </tr>
           <tr>
+            <th>Asset</th>
             <th>Asset Name</th>
             <th>Assigned User</th>
             <th>Assignment Date</th>
@@ -37,8 +46,9 @@ const AllAssignments = () => {
           </tr>
         </thead>
         <tbody>
-          {assignments.map((assignment) => (
+          {currentAssignments.map((assignment) => (
             <tr key={assignment.id} className="assignment-row">
+              <td className="asset-name-item">{assignment.asset_id}</td>
               <td className="asset-name-item">{assignment.asset_name}</td>
               <td className="assigned-user" style={{ textTransform: 'capitalize' }}>{assignment.full_name}</td>
               <td className="assignment-date">{assignment.assignment_date}</td>
@@ -47,6 +57,17 @@ const AllAssignments = () => {
           ))}
         </tbody>
       </table>
+      <div className="pagination">
+        {Array.from({ length: Math.ceil(assignments.length / assignmentsPerPage) }, (_, index) => (
+          <button
+            key={index + 1}
+            onClick={() => paginate(index + 1)}
+            className={`pagination-button ${currentPage === index + 1 ? 'active' : ''}`}
+          >
+            {index + 1}
+          </button>
+        ))}
+      </div>
     </div>
   );
 };

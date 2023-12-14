@@ -1,90 +1,16 @@
-import React,{useEffect,useState} from 'react';
-import { FaRegCalendarCheck, FaRegCalendarTimes, FaCheckCircle, FaCalculator } from 'react-icons/fa';
+import React,{useState,useEffect} from 'react';
+import {FaCheckCircle } from 'react-icons/fa';
 import { GoPeople } from 'react-icons/go';
 import "../Styles/userDashboard.css";
 import { FaTimesCircle,FaPlusCircle,FaSort,FaQuestionCircle} from 'react-icons/fa';
-import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';
+
 import RequestForm from "./RequestForm"
 import AssignmentComponent from "../components/UserAssignments"
+import { useAuth } from './AuthContext';
 const Dashboard = () => {
-  const [userRequests, setUserRequests] = useState([]);
+  const {user} = useAuth()
   const [error, setError] = useState(null);
   const [showAddRequestForm, setShowAddRequestForm] = useState(false);
-
-  const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(5);
-
-  useEffect(() => {
-    const fetchUserRequests = async () => {
-      try {
-        const response = await fetch('http://127.0.0.1:5555/user_requests', {
-          credentials: 'include',
-        });
-        if (response.status === 200) {
-          const data = await response.json();
-      
-          setUserRequests(data);
-        } else {
-          const errorData = await response.json();
-         
-          setError(errorData.error);
-        }
-      } catch (error) {
-    
-        setError('An error occurred while fetching user requests.');
-      }
-    };
-
-    fetchUserRequests();
-  }, []);
-  const approvedCount = userRequests.filter(request => request.status === 'Approved').length;
-  const pendingCount = userRequests.filter(request => request.status === 'Pending').length;
-  const rejectedCount = userRequests.filter(request => request.status === 'Rejected').length;
-  const totalCount = userRequests.length;
-
-  const [sortKey, setSortKey] = useState(''); 
-  const [filterStatus, setFilterStatus] = useState(''); 
-  const paginate = pageNumber => setCurrentPage(pageNumber);
-
-
-
-  const handleNextPage = () => {
-    if (currentPage < maxPage) {
-      setCurrentPage(currentPage + 1);
-    }
-  };
-
-  const handlePrevPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
-    }
-  };
-
-  const handleSort = (key) => {
-    setSortKey(key);
-  };
-
-  const handleFilterStatus = (status) => {
-    setFilterStatus(status);
-  };
-
-  const sortedAndFilteredItems = userRequests
-    .filter((request) => (filterStatus ? request.status === filterStatus : true))
-    .sort((a, b) => {
-      if (sortKey === 'urgency') {
-        return a.urgency.localeCompare(b.urgency);
-      } else if (sortKey === 'status') {
-        return a.status.localeCompare(b.status);
-      } else {
-        return 0;
-      }
-    });
-
-    const indexOfLastItem = currentPage * itemsPerPage;
-    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentItems = sortedAndFilteredItems.slice(indexOfFirstItem, indexOfLastItem);
-  
-    const maxPage = Math.ceil(sortedAndFilteredItems.length / itemsPerPage);
 
   return (
     <section>
@@ -97,39 +23,6 @@ const Dashboard = () => {
             <div className="dashboard-item-count"></div>
           </div>
           <div className="dashboard-item-label">Add a request</div>
-        </div>
-        <div className="dashboard-item">
-          <div className="dashboard-item-content">
-            <div className="dashboard-item-count">{approvedCount}</div>
-            <div className="dashboard-item-icon green-icon"><FaCheckCircle /></div>
-            
-          </div>
-          <div className="dashboard-item-label">Completed Requests</div>
-        </div>
-
-        <div className="dashboard-item">
-          <div className="dashboard-item-content">
-            <div className="dashboard-item-count">{pendingCount}</div>
-            
-            <div className="dashboard-item-icon green-icon"><FaRegCalendarCheck /></div>
-          </div>
-          <div className="dashboard-item-label">Active Requests</div>
-        </div>
-
-        <div className="dashboard-item">
-          <div className="dashboard-item-content">
-            <div className="dashboard-item-count">{rejectedCount}</div>
-            <div className="dashboard-item-icon red-icon"><FaRegCalendarTimes /></div>
-          </div>
-          <div className="dashboard-item-label">Rejected Requests</div>
-        </div>
-
-        <div className="dashboard-item">
-          <div className="dashboard-item-content">
-            <div className="dashboard-item-count">{totalCount}</div>
-            <div className="dashboard-item-icon times"><FaCalculator /></div>
-          </div>
-          <div className="dashboard-item-label">Total Requests</div>
         </div>
       </section>
       <section>
@@ -145,16 +38,16 @@ const Dashboard = () => {
                     <th>Asset Name</th>
                     <th>Description</th>
                     <th>Quantity</th>
-                      <th onClick={() => handleSort('urgency')} style={{ textDecoration: 'underline', cursor: 'pointer' }}>
+                      <th>
                         Urgency <FaSort />
                       </th>
-                      <th onClick={() => handleSort('status')}>
+                      <th>
                         Status <FaSort />
                       </th>
                   </tr>
                 </thead>
-                <tbody>
-                {currentItems.map((request) => (
+                {(user && user.requests) ? (<tbody>
+                {user.requests.map((request) => (
                   <tr key={request.request_id}>
                     <td>{request.asset_name}</td>
                     <td>{request.description}</td>
@@ -177,21 +70,10 @@ const Dashboard = () => {
                   </td>
                   </tr>
                 ))}
-              </tbody>
+              </tbody>):(<tbody></tbody>) }
+                
               </table>
-              <div className="pagination">
-                <button onClick={handlePrevPage}>
-                  <MdKeyboardArrowLeft />
-                </button>
-                {[...Array(maxPage)].map((_, index) => (
-                  <button key={index + 1} onClick={() => paginate(index + 1)}>
-                    {index + 1}
-                  </button>
-                ))}
-                <button onClick={handleNextPage}>
-                  <MdKeyboardArrowRight />
-                </button>
-              </div>
+              
             </div>
            </div>
   

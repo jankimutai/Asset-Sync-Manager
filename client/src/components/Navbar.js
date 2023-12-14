@@ -102,9 +102,10 @@ function Navbar() {
         </div>
       ) : (
         <ul className="nav-list right">
-          <li><Link to="/login" className="nav-link hover:text-indigo-200"><FontAwesomeIcon icon={faSignInAlt} /> Login</Link></li>
           <li><Link to="/register" className="nav-link hover:text-indigo-200"><FontAwesomeIcon icon={faUserPlus} /> Register</Link></li>
+          <li><Link to="/login" className="nav-link hover:text-indigo-200"><FontAwesomeIcon icon={faSignInAlt} /> Login</Link></li>
         </ul>
+
       )}
     </nav>
   );

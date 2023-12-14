@@ -1,8 +1,9 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import { useAuth } from './AuthContext';
 function AddRequest() {
+  const { updateUserData, triggerRefresh } = useAuth();
   const navigate = useNavigate();
   const [requests, setRequests] = useState({
     asset_name: '',
@@ -20,16 +21,23 @@ function AddRequest() {
     });
   };
 
-  function handleSubmit(e) {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    axios
-      .post(`http://127.0.0.1:5555/requests`, requests)
-      .then((resp) => {
-        console.log(resp);
-        navigate('/user_dashboard');
-      })
-      .catch((err) => console.log(err));
-  }
+    try {
+      const response = await axios.post('http://127.0.0.1:5555/requests', requests);
+
+      if (response.status === 200) {
+        console.log(response.data);
+        updateUserData(response.data);
+        triggerRefresh();
+        onClose(); 
+      } else {
+        console.error('Request failed');
+      }
+    } catch (error) {
+      console.error('Error submitting request:', error);
+    }
+  };
 
   return (
     <div className="flex justify-center items-center h-screen">
